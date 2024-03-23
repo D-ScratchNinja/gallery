@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        img-src 'self' https://*.scratch.mit.edu/;
+        style-src 'self' 'unsafe-inline';
+      "
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>D-ScratchNinja - Project Gallery</title>
+  </head>
+
+  <template id="template-project_card">
+    <div class="card">
+      <a class="style_as_text" target="_blank">
+        <img class="image-thumbn" alt="Project thumbnail" decoding="async" loading="lazy">
+        <span class="text-label_large">title</span>
+      </a>
+    </div>
+  </template>
+
+  <body>
+    <button style="z-index: 1;" class="accent floating_button skip_button">Skip to content</button>
+
+    <div style="max-width: 916px; padding: 16px; margin: auto;">
+      <header>
+        <div>
+          <div>
+            <h2><a href="https://scratch.mit.edu/users/D-ScratchNinja" style="color: var(--color-color-pink); outline-color: var(--color-color-pink);">D-ScratchNinja</a>'s Scratch projects</h2>
+          </div>
+          <div>
+            <a href="#about" title="Content, privacy, safety, and other info">About & Info</a>
+            <a href="#" id="btn-random" title="Pick one for me" class="style_as_text die">🎲</a>
+            <button id="btn-filter">Search or filter...</button>
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <div class="item-row full">
+            <select title="Category">
+              <option value="">All</option>
+              <option value="featured">Featured</option>
+              <option value="animation">Animations</option>
+              <option value="art">Art</option>
+              <option value="game">Games</option>
+              <option value="fun">Fun</option>
+              <option value="learning">Learning & Tutorials</option>
+              <option value="library">Libraries & Engines</option>
+              <option value="information">Information</option>
+              <option value="music">Music</option>
+              <option value="tool">Tools and Utilities</option>
+            </select>
+            <select data-hidden data-if="game" title="Genre">
+              <option value="">All</option>
+              <option value="action">Action</option>
+              <option value="adventure">Adventure</option>
+              <option value="arcade">Arcade</option>
+              <option value="board">Board Game</option>
+              <option value="educational">Educational</option>
+              <option value="multiplayer">Multiplayer</option>
+              <option value="party">Party</option>
+              <option value="platformer">Platformer</option>
+              <option value="puzzle">Puzzle</option>
+              <option value="racing">Racing</option>
+              <option value="strategy">Strategy</option>
+              <option value="simulation">Simulation</option>
+              <option value="word">Word</option>
+            </select>
+            <!-- select title="Sorting">
+              <option>Most recent first</option>
+              <option>Least recent first</option>
+              <option>My favorites first</option>
+            </select -->
+          </div>
+          <form><input placeholder="Search" type="text" autocomplete="off" maxlength="50" enterkeyhint="search" spellcheck="false" style="width: 300px;"></form>
+        </div>
+      </header>
+
+      <main>
+        <h4 hidden="hidden" id="no_results" class="center" tabindex="0">No results.</h4>
+        <!-- p id="touchnotice" data-hidden class="center">Some results are excluded because you are on a touch screen device.</p -->
+        <div id="list" role="main" class="list-grid_results"></div>
+      </main>
+
+      <footer>
+        <div class="disclaimer center" role="contentinfo" id="about">
+          <p>
+            Not all of my projects are included on this website. See them all
+            <a href="https://scratch.mit.edu/users/D-ScratchNinja/projects/">on Scratch</a>.
+          </p>
+
+          <p>
+            Scratch is a coding language and online community, available for free at
+            <a href="https://scratch.mit.edu/" target="_blank">scratch.mit.edu</a>, is maintained by the staff of the
+            <a href="https://www.scratchfoundation.org/" target="_blank">Scratch Foundation</a>, a nonprofit organization, and
+            was started by the Lifelong Kindergarten group at the MIT Media Lab.
+          </p>
+
+          <p>
+            This website is not affiliated with or endorsed by Scratch in any way.
+          </p>
+          
+          <p>
+            Scratch applies a
+            <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Creative Commons Attribution-ShareAlike
+            2.0</a> license to all projects shared on the Scratch website. Thumbnails are pulled from Scratch.
+          </p>
+
+          <p id="links">
+            <a href="#" action="modal-privacy">Privacy & Safety</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <button class="floating_button top_button">Back to top</button>
+
+    <dialog class="center">
+      <h2>Privacy</h2>
+      <p>
+        I don't collect any analytics or usage data from this website. It does, however, make requests to Scratch's database to
+        fetch project thumbnails. See <a href="https://scratch.mit.edu/privacy_policy/" target="_blank">Scratch's privacy
+        policy</a> for more information.
+      </p>
+      <p>
+        Some of the Scratch projects feature Cloud variables, which are stored on Scratch's server and update live. This can
+        potentially result in data being collected depending on the use case. Only users logged into a Scratch account with the
+        "Scratcher" status can use Cloud variables, otherwise they will function as normal variables, and very limited data is able
+        to be collected with Scratch - nothing more than usernames, timestamps, set language, and in-project interactions. See my
+        <a href="https://scratch.mit.edu/projects/964120169" target="_blank">Cloud variable privacy policy on Scratch</a> for more
+        information. For information on how <i>Scratch</i> handles Cloud variables, see
+        <a href="https://scratch.mit.edu/faq#clouddata" target="_blank">Scratch's FAQ</a> and
+        <a href="https://scratch.mit.edu/privacy_policy/" target="_blank">Scratch's privacy policy</a>.
+      </p>
+      <h2>Safety</h2>
+      <p>
+        Scratch's target audience is kids, so they have strict
+        <a href="https://scratch.mit.edu/community_guidelines/" target="_blank">Community Guidelines</a>
+        to keep the platform a safe environment. Therefore, all Scratch projects listed on this website are kid-appropriate.
+      </p>
+      <p>
+        Users can interact with each other using Cloud variables but
+        <a href="https://scratch.mit.edu/faq#clouddata:~:text=Can%20I%20make%20chat,on%20the%20Scratch%20website."
+        target="_blank">free communication features are not allowed</a>.
+      </p>
+      <button autofocus>OK</button>
+    </dialog>
+  </body>
+
+  <style>
+    @import url(index.css);
+  </style>
+
+  <script src="index.js" type="module"></script>
+</html>
