@@ -1,4 +1,4 @@
-import projects from "/content.js";
+import projects from "./content.js";
 
 let lastRandomPick;
     
