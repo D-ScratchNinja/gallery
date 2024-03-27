@@ -34,11 +34,11 @@
           </div>
           <div>
             <a href="#about" title="Content, privacy, safety, and other info">About & Info</a>
-            <a href="#" id="btn-random" title="Pick one for me" class="style_as_text die">🎲</a>
-            <button id="btn-filter">Search or filter...</button>
+            <a href="#" id="btn-random" title="Pick one for me" aria-label="Random project" class="style_as_text die">🎲</a>
+            <button id="btn-filter" aria-controls="filters_row" aria-label="Show search and filters" aria-pressed="true">Search or filter...</button>
           </div>
         </div>
-        <div style="margin-bottom: 12px;">
+        <div id="filters_row" style="margin-bottom: 12px;">
           <div class="item-row full">
             <select title="Category">
               <option value="">All</option>

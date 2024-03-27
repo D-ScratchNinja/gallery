@@ -73,7 +73,7 @@ function filterList(keywords, tag) {
 
 function load() {
   const elements = {
-    filterBar: document.querySelector("header > div:last-child"),
+    filtersRow: document.getElementById("filters_row"),
     topButton: document.querySelector(".top_button"),
   }
   let filter = "";
@@ -94,12 +94,14 @@ function load() {
   filterList("", filter);
 
   // Show filters button
-  document.getElementById("btn-filter").addEventListener("click", () => {
-    const filterBar = elements.filterBar;
-    if (filterBar.hasAttribute("data-hidden")) {
-      filterBar.removeAttribute("data-hidden");
+  document.getElementById("btn-filter").addEventListener("click", (e) => {
+    const filtersRow = elements.filtersRow;
+    const newState = filtersRow.hasAttribute("data-hidden"); // Determines whether the button will show or hide the filters
+    e.target.ariaPressed = newState;
+    if (newState) {
+      filtersRow.removeAttribute("data-hidden");
     } else {
-      filterBar.setAttribute("data-hidden", "");
+      filtersRow.setAttribute("data-hidden", "");
     }
   });
 
@@ -131,17 +133,17 @@ function load() {
   });
 
   // Show more filter options if certain filters are set
-  elements.filterBar.querySelector("select").addEventListener("change", (e) => {
-    elements.filterBar.querySelectorAll("select[data-if]").forEach(element => element.setAttribute("data-hidden", ""));
+  elements.filtersRow.querySelector("select").addEventListener("change", (e) => {
+    elements.filtersRow.querySelectorAll("select[data-if]").forEach(element => element.setAttribute("data-hidden", ""));
     if (e.target.value === "game") {
-      elements.filterBar.querySelector("select[data-if='game']").removeAttribute("data-hidden");
+      elements.filtersRow.querySelector("select[data-if='game']").removeAttribute("data-hidden");
     }
   });
 
   // Other filter dropdowns
-  elements.filterBar.querySelectorAll("select").forEach(element => {
+  elements.filtersRow.querySelectorAll("select").forEach(element => {
     element.addEventListener("change", () => {
-      const filterFields = elements.filterBar.querySelectorAll("select");
+      const filterFields = elements.filtersRow.querySelectorAll("select");
       switch (filterFields[0].value) {
         case "game": {
           filter = filterFields[1].value === "" ? "game" : "game_" + filterFields[1].value;
@@ -181,7 +183,7 @@ function load() {
 
   function focusSearchBar(event) {
     event.preventDefault();
-    if (document.querySelector("header > div:last-child").hasAttribute("data-hidden")) document.getElementById("btn-filter").click(); // Show filters
+    if (elements.filtersRow.hasAttribute("data-hidden")) document.getElementById("btn-filter").click(); // Show filters
     document.querySelector("input").focus();
     document.querySelector("input").select();
   }
