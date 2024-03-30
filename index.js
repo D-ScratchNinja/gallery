@@ -28,6 +28,7 @@ function addProjectToList(data) {
   // Metadata
   newItem.firstElementChild.dataset.item_keywords = data.title.toLowerCase();
   newItem.firstElementChild.dataset.item_tags = data.tags + ",";
+  newItem.firstElementChild.dataset.event_specific = data.eventSpecific ?? false;
   if (data.tags?.includes("desktop")) newItem.firstElementChild.setAttribute("data-desktop_only", "");
   
   document.getElementById("list").appendChild(newItem);
@@ -55,8 +56,9 @@ function filterList(keywords, tag) {
   let count = 0;
   for (const element of document.querySelectorAll(".card")) {
     const matches = (
-      element.dataset.item_tags.includes(tag + ",") &&
-      element.dataset.item_keywords.includes(keywords)
+      element.dataset.item_tags.includes(tag + ",") // Includes selected category
+      && element.dataset.item_keywords.includes(keywords) // Includes search query
+      && (element.dataset.event_specific !== "true" || (tag !== "" && element.dataset.item_tags.includes(tag + ","))) // Includes selected event (e.g. April Fools) or is not related to an event
       // && (!touchDevice || !element.dataset.item_tags.includes("desktop"))
     );
     element.dataset.exclude = !matches;
@@ -255,6 +257,20 @@ function load() {
   document.querySelector(".skip_button").addEventListener("click", () => {
     document.querySelector(".card:not([data-exclude=true]) a").focus();
   });
+
+  // Event-specific categories
+  function addCategoryOption(value, name) {
+    const newOption = document.createElement("option");
+    newOption.value = value;
+    newOption.textContent = name;
+    elements.filtersRow.querySelector("select").querySelector('option[value=""]').insertAdjacentElement("afterend", newOption);
+  }
+  const date = new Date();
+  const stamp = {
+    date: date.getDate(),
+    month: date.getMonth() + 1,
+  };
+  if (stamp.month === 4 && stamp.date === 1) addCategoryOption("aprilfools", "📅 April Fools");
 }
 
 if (document.readyState === "loading") {
