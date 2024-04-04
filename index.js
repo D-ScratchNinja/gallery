@@ -29,21 +29,11 @@ function addProjectToList(data) {
   newItem.firstElementChild.dataset.item_keywords = data.title.toLowerCase();
   newItem.firstElementChild.dataset.item_tags = data.tags + ",";
   newItem.firstElementChild.dataset.event_specific = data.eventSpecific ?? false;
-  if (data.tags?.includes("desktop")) newItem.firstElementChild.setAttribute("data-desktop_only", "");
   
   document.getElementById("list").appendChild(newItem);
 }
 
 function filterList(keywords, tag) {
-  /* TODO
-  * // Hide entries that don't play well on mobile devices if one is detected
-  * const touchDevice = window.matchMedia("(any-hover: none)").matches && window.matchMedia("(pointer: coarse)").matches;
-  * if (touchDevice) {
-  *   document.getElementById("touchnotice").removeAttribute("data-hidden");
-  * } else {
-  *   document.getElementById("touchnotice").setAttribute("data-hidden", "");
-  * }
-  */
   // Gray out the "Search or filter..." button if filters are active
   if (keywords === "" && tag === "") {
     document.getElementById("btn-filter").removeAttribute("disabled");
@@ -59,7 +49,6 @@ function filterList(keywords, tag) {
       element.dataset.item_tags.includes(tag + ",") // Includes selected category
       && element.dataset.item_keywords.includes(keywords) // Includes search query
       && (element.dataset.event_specific !== "true" || (tag !== "" && element.dataset.item_tags.includes(tag + ","))) // Includes selected event (e.g. April Fools) or is not related to an event
-      // && (!touchDevice || !element.dataset.item_tags.includes("desktop"))
     );
     element.dataset.exclude = !matches;
     if (matches) count++;
