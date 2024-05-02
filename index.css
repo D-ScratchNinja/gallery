@@ -40,6 +40,10 @@ body {
   overflow-y: scroll; /* Always show scroll bar */
 }
 
+body > div {
+  max-width: 916px; padding: 16px; margin: auto;
+}
+
 
 
 .card {
@@ -276,6 +280,19 @@ header > div:first-child > :last-child {
   gap: 10px;
 }
 
+header > div input {
+  width: 300px;
+}
+
+h2 a.pink {
+  color: var(--color-color-pink);
+  outline-color: var(--color-color-pink);
+}
+
+#filters_row {
+  margin-bottom: 12px;
+}
+
 .disclaimer {
   margin-top: 50px;
 }
@@ -306,7 +323,7 @@ header > div:first-child > :last-child {
   }
 
   header > div input {
-    width: 100% !important;
+    width: 100%;
   }
 }
 

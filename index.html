@@ -7,12 +7,13 @@
       content="
         default-src 'self';
         img-src 'self' https://*.scratch.mit.edu/;
-        style-src 'self' 'unsafe-inline';
       "
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>D-ScratchNinja - Project Gallery</title>
   </head>
+
+  <link href="index.css" rel="stylesheet" />
 
   <template id="template-project_card">
     <div class="card">
@@ -24,13 +25,13 @@
   </template>
 
   <body>
-    <button style="z-index: 1;" class="accent floating_button skip_button">Skip to content</button>
+    <button class="accent floating_button skip_button">Skip to content</button>
 
-    <div style="max-width: 916px; padding: 16px; margin: auto;">
+    <div>
       <header>
         <div>
           <div>
-            <h2><a href="https://scratch.mit.edu/users/D-ScratchNinja" style="color: var(--color-color-pink); outline-color: var(--color-color-pink);">D-ScratchNinja</a>'s Scratch projects</h2>
+            <h2><a href="https://scratch.mit.edu/users/D-ScratchNinja" class="pink">D-ScratchNinja</a>'s Scratch projects</h2>
           </div>
           <div>
             <a href="#about" title="Content, privacy, safety, and other info">About & Info</a>
@@ -38,7 +39,7 @@
             <button id="btn-filter" aria-controls="filters_row" aria-label="Show search and filters" aria-pressed="true">Search or filter...</button>
           </div>
         </div>
-        <div id="filters_row" style="margin-bottom: 12px;">
+        <div id="filters_row">
           <div class="item-row full">
             <select title="Category">
               <option value="">All</option>
@@ -72,7 +73,7 @@
               <option value="slow">Slow-Paced</option>
             </select>
           </div>
-          <form><input placeholder="Search" type="text" autocomplete="off" maxlength="50" enterkeyhint="search" spellcheck="false" style="width: 300px;"></form>
+          <form><input placeholder="Search" type="text" autocomplete="off" maxlength="50" enterkeyhint="search" spellcheck="false"></form>
         </div>
       </header>
 
@@ -145,10 +146,6 @@
       <button autofocus>OK</button>
     </dialog>
   </body>
-
-  <style>
-    @import url(index.css);
-  </style>
 
   <script src="index.js" type="module"></script>
 </html>
