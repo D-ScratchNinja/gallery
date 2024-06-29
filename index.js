@@ -208,7 +208,7 @@ function load() {
     }
   });
 
-  document.querySelectorAll("[action='modal-privacy']").forEach(elem => elem.addEventListener("click", (e) => {
+  document.querySelectorAll("[data-action='modal-privacy']").forEach(elem => elem.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent following link "#"
     document.querySelector("dialog").showModal();
   }));

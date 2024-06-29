@@ -8,6 +8,7 @@
   --color-hl-bg: color-mix(in srgb, var(--color-bg-page-inv) 5%, #0000 100%);
   --color-border: #91989b9e;
   --color-text: #272930;
+  --color-text-dim: #52545c;
   --color-accent: #702fd8;
   --color-link: var(--color-accent);
   --color-invalid: #c20808;
@@ -25,6 +26,7 @@
     --color-hl-bg: color-mix(in srgb, var(--color-bg-page-inv) 10%, #0000 100%);
     --color-border: #dfdfdf60;
     --color-text: #eee;
+    --color-text-dim: #ccc;
     --color-link: #ba9cff;
     --color-invalid: #ff4040;
     --color-color-pink: #ff77e8;
@@ -79,6 +81,11 @@ a[href]:hover {
 
 a[href]:focus-visible {
   text-decoration-thickness: 2px !important;
+}
+
+[role=contentinfo] p:not([id]) {
+  font-size: 12px;
+  color: var(--color-text-dim);
 }
 
 
