@@ -62,208 +62,200 @@ function filterList(keywords, tag) {
   }
 }
 
-function load() {
-  const elements = {
-    filtersRow: document.getElementById("filters_row"),
-    topButton: document.querySelector(".top_button"),
+const elements = {
+  filtersRow: document.getElementById("filters_row"),
+  topButton: document.querySelector(".top_button"),
+}
+let filter = "";
+
+// Do a search whenever something is typed into the search bar
+document.querySelector("input").addEventListener("input",
+  (e) => {
+    filterList(e.target.value.toLowerCase(), filter);
+  },
+{ passive: true });
+
+// Build the list
+for (const i of projects) {
+  addProjectToList(i);
+}
+
+// Show all results initially
+filterList("", filter);
+
+// Show filters button
+document.getElementById("btn-filter").addEventListener("click", (e) => {
+  const filtersRow = elements.filtersRow;
+  const newState = filtersRow.hasAttribute("data-hidden"); // Determines whether the button will show or hide the filters
+  e.target.ariaPressed = newState;
+  if (newState) {
+    filtersRow.removeAttribute("data-hidden");
+  } else {
+    filtersRow.setAttribute("data-hidden", "");
   }
-  let filter = "";
+});
 
-  // Do a search whenever something is typed into the search bar
-  document.querySelector("input").addEventListener("input",
-    (e) => {
-      filterList(e.target.value.toLowerCase(), filter);
-    },
-  { passive: true });
+// Random item button (link)
+document.getElementById("btn-random").addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent following link "#"
+  const items = document.querySelectorAll(".card:not([data-exclude=true])");
+  if (items.length) {
+    // Pick a random item
+    const number = items.length === 1
+      ? 0 // Only one possible outcome, easy
+      : typeof lastRandomPick === "number"
+        ? (lastRandomPick + 1 + Math.floor(Math.random() * (items.length - 1))) % items.length // Don't roll the same item twice in a row
+        : Math.floor(Math.random() * items.length);
+    lastRandomPick = number;
 
-  // Build the list
-  for (const i of projects) {
-    addProjectToList(i);
+    items[number].style.animation = "bounce 0.2s 6 alternate cubic-bezier(0.25, 0.62, 0.62, 0.97)";
+    items[number].classList.add("chosen");
+    items[number].addEventListener("animationend",
+      () => {
+        items[number].style.removeProperty("animation");
+        items[number].classList.remove("chosen");
+      },
+      { once: true });
+    if (e.isTrusted) {
+      items[number].firstElementChild.focus({ focusVisible: true });
+    }
   }
-  
-  // Show all results initially
-  filterList("", filter);
+});
 
-  // Show filters button
-  document.getElementById("btn-filter").addEventListener("click", (e) => {
-    const filtersRow = elements.filtersRow;
-    const newState = filtersRow.hasAttribute("data-hidden"); // Determines whether the button will show or hide the filters
-    e.target.ariaPressed = newState;
-    if (newState) {
-      filtersRow.removeAttribute("data-hidden");
-    } else {
-      filtersRow.setAttribute("data-hidden", "");
-    }
-  });
+// Show more filter options if certain filters are set
+elements.filtersRow.querySelector("select").addEventListener("change", (e) => {
+  elements.filtersRow.querySelectorAll("select[data-if]").forEach(element => element.setAttribute("data-hidden", ""));
+  if (e.target.value === "game") {
+    elements.filtersRow.querySelector("select[data-if='game']").removeAttribute("data-hidden");
+  }
+});
 
-  // Random item button (link)
-  document.getElementById("btn-random").addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent following link "#"
-    const items = document.querySelectorAll(".card:not([data-exclude=true])");
-    if (items.length) {
-      // Pick a random item
-      const number = items.length === 1
-        ? 0 // Only one possible outcome, easy
-        : typeof lastRandomPick === "number"
-          ? (lastRandomPick + 1 + Math.floor(Math.random() * (items.length - 1))) % items.length // Don't roll the same item twice in a row
-          : Math.floor(Math.random() * items.length);
-      lastRandomPick = number;
-
-      items[number].style.animation = "bounce 0.2s 6 alternate cubic-bezier(0.25, 0.62, 0.62, 0.97)";
-      items[number].classList.add("chosen");
-      items[number].addEventListener("animationend",
-        () => {
-          items[number].style.removeProperty("animation");
-          items[number].classList.remove("chosen");
-        },
-        { once: true });
-      if (e.isTrusted) {
-        items[number].firstElementChild.focus({ focusVisible: true });
+// Other filter dropdowns
+elements.filtersRow.querySelectorAll("select").forEach(element => {
+  element.addEventListener("change", () => {
+    const filterFields = elements.filtersRow.querySelectorAll("select");
+    switch (filterFields[0].value) {
+      case "game": {
+        filter = filterFields[1].value === "" ? "game" : "game_" + filterFields[1].value;
+        break;
       }
+      default: filter = filterFields[0].value;
     }
+    filterList(document.querySelector("input").value.toLowerCase(), filter);
   });
+});
 
-  // Show more filter options if certain filters are set
-  elements.filtersRow.querySelector("select").addEventListener("change", (e) => {
-    elements.filtersRow.querySelectorAll("select[data-if]").forEach(element => element.setAttribute("data-hidden", ""));
-    if (e.target.value === "game") {
-      elements.filtersRow.querySelector("select[data-if='game']").removeAttribute("data-hidden");
-    }
-  });
+// When submitting search
+document.querySelector("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!e.isTrusted) return;
+  try { document.querySelector(".card:not([data-exclude=true]) a").focus(); } catch {
+    // If we can't find an element corresponding to a displayed result (means there are no results)...
+    document.getElementById("no_results").focus();
+  }
+});
 
-  // Other filter dropdowns
-  elements.filtersRow.querySelectorAll("select").forEach(element => {
-    element.addEventListener("change", () => {
-      const filterFields = elements.filtersRow.querySelectorAll("select");
-      switch (filterFields[0].value) {
-        case "game": {
-          filter = filterFields[1].value === "" ? "game" : "game_" + filterFields[1].value;
-          break;
-        }
-        default: filter = filterFields[0].value;
-      }
-      filterList(document.querySelector("input").value.toLowerCase(), filter);
-    });
-  });
+// Clear search query when pressing Esc
+document.querySelector("input").addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    e.target.value = "";
+    filterList("", filter);
+  }
+});
 
-  // When submitting search
-  document.querySelector("form").addEventListener("submit", (e) => {
+// Focus search bar when pressing Enter on "No results"
+document.getElementById("no_results").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
     e.preventDefault();
-    if (!e.isTrusted) return;
-    try { document.querySelector(".card:not([data-exclude=true]) a").focus(); } catch {
-      // If we can't find an element corresponding to a displayed result (means there are no results)...
-      document.getElementById("no_results").focus();
+    if (e.isTrusted) document.querySelector("input").select();
+  };
+});
+
+function focusSearchBar(event) {
+  event.preventDefault();
+  if (elements.filtersRow.hasAttribute("data-hidden")) document.getElementById("btn-filter").click(); // Show filters
+  document.querySelector("input").focus();
+  document.querySelector("input").select();
+}
+
+// Global keyboard shortcuts
+document.addEventListener("keydown", (e) => {
+  // Only when focus is outside of the search bar
+  if (!e.target.closest("input, dialog")) {
+    switch (e.key) {
+      case "/": {
+        focusSearchBar(e);
+        break;
+      }
     }
-  });
-
-  // Clear search query when pressing Esc
-  document.querySelector("input").addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      e.target.value = "";
-      filterList("", filter);
-    }
-  });
-
-  // Focus search bar when pressing Enter on "No results"
-  document.getElementById("no_results").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (e.isTrusted) document.querySelector("input").select();
-    };
-  });
-
-  function focusSearchBar(event) {
-    event.preventDefault();
-    if (elements.filtersRow.hasAttribute("data-hidden")) document.getElementById("btn-filter").click(); // Show filters
-    document.querySelector("input").focus();
-    document.querySelector("input").select();
-  }
-
-  // Global keyboard shortcuts
-  document.addEventListener("keydown", (e) => {
-    // Only when focus is outside of the search bar
-    if (!e.target.closest("input, dialog")) {
-      switch (e.key) {
-        case "/": {
+    switch (e.key) {
+      case "k": {
+        if (e.ctrlKey || e.metaKey) {
           focusSearchBar(e);
           break;
         }
       }
-      switch (e.key) {
-        case "k": {
-          if (e.ctrlKey || e.metaKey) {
-            focusSearchBar(e);
-            break;
-          }
-        }
-      }
-      switch (e.key) {
-        case "f": {
-          if (e.ctrlKey || e.metaKey) {
-            focusSearchBar(e);
-            break;
-          }
+    }
+    switch (e.key) {
+      case "f": {
+        if (e.ctrlKey || e.metaKey) {
+          focusSearchBar(e);
+          break;
         }
       }
     }
-  });
-
-  document.querySelectorAll("[data-action='modal-privacy']").forEach(elem => elem.addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent following link "#"
-    document.querySelector("dialog").showModal();
-  }));
-
-  // Dialog close buttons
-  document.querySelectorAll("dialog").forEach(element => {
-    element.querySelector("button").addEventListener("click", () => {
-      element.close();
-    });
-  });
-
-  // Show "Back to top" button if you've scrolled past a certain point
-  document.addEventListener("scroll", () => {
-    const show = window.scrollY > 300;
-    elements.topButton.style.pointerEvents = show ? "all" : "none";
-    elements.topButton.style.opacity = show ? 1 : 0;
-    elements.topButton.tabindex = show ? 0 : -1;
-  });
-
-  // "Back to top" button
-  elements.topButton.addEventListener("click", () => {
-    // Remove the fragment from the current URL, if there is one
-    const currentURL = new URL(location);
-    if (currentURL.hash) {
-      let target = currentURL;
-      target.hash = "";
-      history.pushState({}, "", target);
-    }
-
-    window.scrollTo(0, 0);
-    document.querySelector(".card:not([data-exclude=true]) a").focus();
-  });
-
-  // "Skip to content" button
-  document.querySelector(".skip_button").addEventListener("click", () => {
-    document.querySelector(".card:not([data-exclude=true]) a").focus();
-  });
-
-  // Event-specific categories
-  function addCategoryOption(value, name) {
-    const newOption = document.createElement("option");
-    newOption.value = value;
-    newOption.textContent = name;
-    elements.filtersRow.querySelector("select").querySelector('option[value=""]').insertAdjacentElement("afterend", newOption);
   }
-  const date = new Date();
-  const stamp = {
-    date: date.getDate(),
-    month: date.getMonth() + 1,
-  };
-  if (stamp.month === 4 && stamp.date === 1) addCategoryOption("aprilfools", "📅 April Fools");
-}
+});
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", load);
-} else {
-  load();
+document.querySelectorAll("[data-action='modal-privacy']").forEach(elem => elem.addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent following link "#"
+  document.querySelector("dialog").showModal();
+}));
+
+// Dialog close buttons
+document.querySelectorAll("dialog").forEach(element => {
+  element.querySelector("button").addEventListener("click", () => {
+    element.close();
+  });
+});
+
+// Show "Back to top" button if you've scrolled past a certain point
+document.addEventListener("scroll", () => {
+  const show = window.scrollY > 300;
+  elements.topButton.style.pointerEvents = show ? "all" : "none";
+  elements.topButton.style.opacity = show ? 1 : 0;
+  elements.topButton.tabindex = show ? 0 : -1;
+});
+
+// "Back to top" button
+elements.topButton.addEventListener("click", () => {
+  // Remove the fragment from the current URL, if there is one
+  const currentURL = new URL(location);
+  if (currentURL.hash) {
+    let target = currentURL;
+    target.hash = "";
+    history.pushState({}, "", target);
+  }
+
+  window.scrollTo(0, 0);
+  document.querySelector(".card:not([data-exclude=true]) a").focus();
+});
+
+// "Skip to content" button
+document.querySelector(".skip_button").addEventListener("click", () => {
+  document.querySelector(".card:not([data-exclude=true]) a").focus();
+});
+
+// Event-specific categories
+function addCategoryOption(value, name) {
+  const newOption = document.createElement("option");
+  newOption.value = value;
+  newOption.textContent = name;
+  elements.filtersRow.querySelector("select").querySelector('option[value=""]').insertAdjacentElement("afterend", newOption);
 }
+const date = new Date();
+const stamp = {
+  date: date.getDate(),
+  month: date.getMonth() + 1,
+};
+if (stamp.month === 4 && stamp.date === 1) addCategoryOption("aprilfools", "📅 April Fools");
