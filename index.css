@@ -96,7 +96,7 @@ header > div:first-child > :last-child {
   justify-content: flex-end;
   margin: auto 0;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 }
 
 header > div input {

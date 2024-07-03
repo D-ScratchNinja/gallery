@@ -4,9 +4,11 @@
   --color-bg-page-inv: #000;
   --color-input-bg: #f9f9f9;
   --color-input-bg-hl: #fff;
-  --color-button-bg: #fcfcfc;
+  --color-button-bg: #fff;
+  --color-button-bg-hl: #e1e3e6;
   --color-hl-bg: color-mix(in srgb, var(--color-bg-page-inv) 5%, #0000 100%);
-  --color-border: #91989b9e;
+  --color-border: #6c71749e;
+  --color-border-dim: #91989b9e;
   --color-text: #272930;
   --color-text-dim: #52545c;
   --color-accent: #702fd8;
@@ -22,9 +24,11 @@
     --color-bg-page-inv: #fff;
     --color-input-bg: var(--color-bg-page);
     --color-input-bg-hl: #000;
-    --color-button-bg: var(--color-input-bg);
+    --color-button-bg: #2d2d30;
+    --color-button-bg-hl: #4d4d52;
     --color-hl-bg: color-mix(in srgb, var(--color-bg-page-inv) 10%, #0000 100%);
-    --color-border: #dfdfdf60;
+    --color-border: #dfdfdf47;
+    --color-border-dim: #dfdfdf50;
     --color-text: #eee;
     --color-text-dim: #ccc;
     --color-link: #ba9cff;
@@ -52,6 +56,10 @@ body, button, input, select {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Noto Sans", Arial, Helvetica, sans-serif;
   font-size: 14px;
   color: var(--color-text);
+}
+
+button, input, select {
+  border-radius: 8px;
 }
 
 .text-label_large {
@@ -110,17 +118,17 @@ button {
   font-size: 15px;
   padding: 7px;
   border: 1px solid var(--color-border);
-  border-radius: 6px;
   background-color: var(--color-button-bg);
   cursor: pointer;
 }
 
 button:enabled:hover {
-  border-color: var(--color-bg-page-inv);
+  background-color: var(--color-button-bg-hl);
+  border-color: var(--color-border-dim);
 }
 
 button:enabled:active {
-  filter: brightness(0.9);
+  filter: brightness(0.85);
 }
 
 button:disabled {
@@ -130,7 +138,7 @@ button:disabled {
 }
 
 button.accent {
-  background-color: var(--color-accent);
+  background-color: var(--color-accent) !important;
   color: #fff;
   outline: #fff 2px solid;
   outline-offset: -3px;
@@ -140,8 +148,7 @@ input, select {
   font-size: 15px;
   height: 38px;
   padding: 0 9px;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border: 1px solid var(--color-border-dim);
   background-color: var(--color-input-bg);
   box-shadow: inset #0004 0px 1px 2px -1px;
 }
@@ -205,22 +212,22 @@ dialog {
   border: solid 1px var(--color-border);
   border-radius: 12px;
   box-shadow: #0006 0px 4px 19px 1px;
-  background-color: #fafafadd;
+  background-color: #fafafaad;
   backdrop-filter: blur(12px);
 }
 
 ::backdrop {
-  background-color: #fff7;
+  background-color: #fff9;
   backdrop-filter: blur(0.75px);
 }
 
 @media (prefers-color-scheme: dark) {
-  ::backdrop {
-    background-color: #0007;
-  }
-  
   dialog {
     box-shadow: #000 0px 4px 19px 1px;
-    background-color: #14141499;
+    background-color: #141414e2;
+  }
+  
+  ::backdrop {
+    background-color: #0007;
   }
 }
