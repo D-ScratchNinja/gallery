@@ -1,5 +1,5 @@
 export default [
-  { id: "1034416590", title: "Popsicle Match", tags: ["game", "game_slow", "game_casual", "game_puzzle", "game_strategy"] },
+  { id: "1034416590", title: "Popsicle Match", tags: ["featured", "game", "game_slow", "game_casual", "game_puzzle", "game_strategy"] },
   { id: "991778476", title: "April Fools! | Crazy Coins", eventSpecific: true, tags: ["aprilfools"] },
   { id: "976441950", title: "Stage Measuring Tools", tags: ["library", "tool"] },
   { id: "984086664", title: "Media Control Buttons", tags: ["art"] },
