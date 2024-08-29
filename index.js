@@ -1,7 +1,7 @@
 import projects from "./content.js";
 
 let lastRandomPick;
-    
+
 function addProjectToList(data) {
   const newItem = document.getElementById("template-project_card").content.cloneNode(true);
   const aElem = newItem.firstElementChild.firstElementChild;
@@ -9,27 +9,27 @@ function addProjectToList(data) {
   // Link
   aElem.href =
     `https://scratch.mit.edu/projects/${data.id}`;
-  
+
   // Image source
   aElem.firstElementChild.src =
     `https://uploads.scratch.mit.edu/get_image/project/${data.id}_480x360.png`;
-  
+
   // Alt text for image
   aElem.firstElementChild.alt = `Thumbnail for project ${data.title}`;
-  
+
   // Title of project
   aElem.lastElementChild.textContent = data.title;
-  
+
 
   // (Debugging) Tags of project
   // newItem.firstElementChild.lastElementChild.textContent = data.tags.join(", ");
-  
-  
+
+
   // Metadata
   newItem.firstElementChild.dataset.item_keywords = data.title.toLowerCase();
   newItem.firstElementChild.dataset.item_tags = data.tags + ",";
   newItem.firstElementChild.dataset.event_specific = data.eventSpecific ?? false;
-  
+
   document.getElementById("list").appendChild(newItem);
 }
 
@@ -46,9 +46,15 @@ function filterList(keywords, tag) {
   let count = 0;
   for (const element of document.querySelectorAll(".card")) {
     const matches = (
-      element.dataset.item_tags.includes(tag + ",") // Includes selected category
-      && element.dataset.item_keywords.includes(keywords) // Includes search query
-      && (element.dataset.event_specific !== "true" || (tag !== "" && element.dataset.item_tags.includes(tag + ","))) // Includes selected event (e.g. April Fools) or is not related to an event
+      // Is in the selected category
+      element.dataset.item_tags.includes(tag + ",")
+      // Includes search query
+      && element.dataset.item_keywords.includes(keywords)
+      // Is related to the selected event (e.g. April Fools) or is not related to an event
+      && (
+        element.dataset.event_specific !== "true"
+        || (tag !== "" && element.dataset.item_tags.includes(tag + ","))
+      )
     );
     element.dataset.exclude = !matches;
     if (matches) count++;
@@ -69,11 +75,13 @@ const elements = {
 let filter = "";
 
 // Do a search whenever something is typed into the search bar
-document.querySelector("input").addEventListener("input",
+document.querySelector("input").addEventListener(
+  "input",
   (e) => {
     filterList(e.target.value.toLowerCase(), filter);
   },
-{ passive: true });
+  { passive: true },
+);
 
 // Build the list
 for (const i of projects) {
@@ -86,13 +94,7 @@ filterList("", filter);
 // Show filters button
 document.getElementById("btn-filter").addEventListener("click", (e) => {
   const filtersRow = elements.filtersRow;
-  const newState = filtersRow.hasAttribute("data-hidden"); // Determines whether the button will show or hide the filters
-  e.target.ariaPressed = newState;
-  if (newState) {
-    filtersRow.removeAttribute("data-hidden");
-  } else {
-    filtersRow.setAttribute("data-hidden", "");
-  }
+  e.target.ariaPressed = !filtersRow.toggleAttribute("data-hidden");
 });
 
 // Random item button (link)
@@ -110,12 +112,14 @@ document.getElementById("btn-random").addEventListener("click", (e) => {
 
     items[number].style.animation = "bounce 0.2s 6 alternate cubic-bezier(0.25, 0.62, 0.62, 0.97)";
     items[number].classList.add("chosen");
-    items[number].addEventListener("animationend",
+    items[number].addEventListener(
+      "animationend",
       () => {
         items[number].style.removeProperty("animation");
         items[number].classList.remove("chosen");
       },
-      { once: true });
+      { once: true },
+    );
     if (e.isTrusted) {
       items[number].firstElementChild.focus({ focusVisible: true });
     }
