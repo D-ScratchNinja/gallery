@@ -1,4 +1,5 @@
 export default [
+  { id: "1065992844", title: "Family Tree", tags: ["learning"] },
   { id: "1034416590", title: "Popsicle Match", tags: ["featured", "game", "game_slow", "game_casual", "game_puzzle", "game_strategy"] },
   { id: "991778476", title: "April Fools! | Crazy Coins", eventSpecific: true, tags: ["aprilfools"] },
   { id: "976441950", title: "Stage Measuring Tools", tags: ["library", "tool"] },
