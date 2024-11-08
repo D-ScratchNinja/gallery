@@ -1,5 +1,5 @@
 <div align=center>
-  <img src="https://uploads.scratch.mit.edu/get_image/user/33988895_128x128.png" alt="D-ScratchNinja's profile picture, a pink shape resembling a square with bumps on the edges, similar to a wavy circle, with a D on the bottom-left and eyes looking ahead on the top-right, inside a pink circular ring" width="128px"></img>
+  <img src="https://uploads.scratch.mit.edu/get_image/user/33988895_128x128.png" alt="D-ScratchNinja's profile picture, a pink shape resembling a square with bumps on the edges, similar to a wavy circle, with a letter D on the bottom left corner and eyes looking ahead on the top right corner, all inside a pink circular ring" width="128px"></img>
 
   # D-ScratchNinja's Project Gallery
 </div>
@@ -15,4 +15,4 @@ This website is a categorized collection showing many of the projects I have pub
 
 ## License
 
-The source code in this repository is licensed under the terms of the [MIT License](./LICENSE). The Scratch projects displayed on the website are licensed to and through Scratch under the [Creative Commons Attribution-ShareAlike 2.0 license](https://creativecommons.org/licenses/by-sa/2.0/).
+The code and contents of this repository is licensed under the terms of the [MIT License](./LICENSE).
