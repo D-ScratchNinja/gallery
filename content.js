@@ -1,4 +1,5 @@
 export default [
+  { id: "1101155218", title: "Blue Obstacles 3", tags: ["featured", "game", "game_action", "game_fast", "game_multiplayer"] },
   { id: "1065992844", title: "Family Tree", tags: ["learning"] },
   { id: "1034416590", title: "Popsicle Match", tags: ["featured", "game", "game_slow", "game_casual", "game_puzzle", "game_strategy"] },
   { id: "991778476", title: "April Fools! | Crazy Coins", eventSpecific: true, tags: ["aprilfools"] },
@@ -23,7 +24,7 @@ export default [
   { id: "869061606", title: "Scratch Color Palette", tags: ["library"] },
   { id: "854658705", title: "Fast Factor Finder", tags: ["tool"] },
   { id: "842459411", title: "What are sine and cosine?", tags: ["featured", "learning", "information"] },
-  { id: "832742287", title: "Blue Obstacles VS", tags: ["featured", "game", "game_action", "game_fast", "game_multiplayer", "game_party", "desktop"] },
+  { id: "832742287", title: "Blue Obstacles VS", tags: ["game", "game_action", "game_fast", "game_multiplayer", "game_party", "desktop"] },
   { id: "831040735", title: "Easy Music Switcher", tags: ["library"] },
   { id: "812742893", title: "April Fools - A totally normal collecting game", eventSpecific: true, tags: ["aprilfools"] },
   { id: "807144224", title: "April Fools - Chat with Cat (AI Powered)", eventSpecific: true, tags: ["aprilfools"] },
