@@ -1,4 +1,6 @@
 export default [
+  { id: "1259671548", title: "f(blocks)", tags: ["tool"] },
+  { id: "1226673070", title: "Face Control!", tags: ["fun"] },
   { id: "1101155218", title: "Blue Obstacles 3", tags: ["featured", "game", "game_action", "game_fast", "game_multiplayer"] },
   { id: "1065992844", title: "Family Tree", tags: ["learning"] },
   { id: "1034416590", title: "Popsicle Match", tags: ["featured", "game", "game_slow", "game_casual", "game_puzzle", "game_strategy"] },
