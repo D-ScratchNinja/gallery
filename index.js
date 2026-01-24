@@ -40,7 +40,7 @@ function filterList(keywords, tag) {
     document.getElementById("btn-filter").removeAttribute("title");
   } else {
     document.getElementById("btn-filter").setAttribute("disabled", "");
-    document.getElementById("btn-filter").setAttribute("title", "You have filters active");
+    document.getElementById("btn-filter").setAttribute("title", "Filters active");
   }
 
   let count = 0;

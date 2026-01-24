@@ -120,6 +120,7 @@ button {
   border: 1px solid var(--color-border);
   background-color: var(--color-button-bg);
   cursor: pointer;
+  transition: background 0.1s, opacity 0.15s;
 }
 
 button:enabled:hover {
@@ -169,7 +170,6 @@ select {
   bottom: 9px;
   right: 9px;
   opacity: 0;
-  transition: opacity 0.15s;
   pointer-events: none;
 }
 
@@ -230,4 +230,8 @@ dialog {
   ::backdrop {
     background-color: #0007;
   }
+}
+
+dialog button {
+  width: 100%;
 }
