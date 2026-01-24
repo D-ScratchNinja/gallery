@@ -48,8 +48,8 @@ function filterList(keywords, tag) {
     const matches = (
       // Is in the selected category
       element.dataset.item_tags.includes(tag + ",")
-      // Includes search query
-      && element.dataset.item_keywords.includes(keywords)
+      // Name contains search query
+      && keywords.match(/\w+/g).every((w) => element.dataset.item_keywords.includes(w))
       // Is related to the selected event (e.g. April Fools) or is not related to an event
       && (
         element.dataset.event_specific !== "true"
