@@ -72,23 +72,19 @@ a[href] {
   text-underline-offset: 2px;
 }
 
-a:not(.card > :first-child, .emoji_button) {
-  outline-offset: 3px;
-  outline-color: var(--color-link);
-}
-
-a[href].style_as_text {
+a.style_as_text {
   color: var(--color-text);
   text-decoration: none;
 }
 
-a[href]:hover {
-  text-decoration: underline !important;
-  text-decoration-thickness: 2px !important;
+a[href]:is(:hover, :focus-visible) {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
-a[href]:focus-visible {
-  text-decoration-thickness: 2px !important;
+a:not(.card > :first-child, .emoji_button) {
+  outline-offset: 3px;
+  outline-color: var(--color-link);
 }
 
 [role=contentinfo] p:not([id]) {
@@ -100,7 +96,6 @@ a[href]:focus-visible {
 
 .item-row {
   display: flex;
-  flex-direction: row;
   gap: 7px;
 }
 

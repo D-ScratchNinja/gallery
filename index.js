@@ -14,7 +14,8 @@ function addProjectToList(data) {
   aElem.firstElementChild.src =
     `https://uploads.scratch.mit.edu/get_image/project/${data.id}_480x360.png`;
 
-  // Alt text for image
+  // Readable description
+  aElem.ariaLabel = data.title;
   aElem.firstElementChild.alt = `Thumbnail for project ${data.title}`;
 
   // Title of project
@@ -170,8 +171,7 @@ document.querySelector("input").addEventListener("keydown", (e) => {
 // Focus search bar when pressing Enter on "No results"
 document.getElementById("no_results").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    e.preventDefault();
-    if (e.isTrusted) document.querySelector("input").select();
+    focusSearchBar(e);
   };
 });
 
@@ -186,26 +186,18 @@ function focusSearchBar(event) {
 document.addEventListener("keydown", (e) => {
   // Only when focus is outside of the search bar
   if (!e.target.closest("input, dialog")) {
+    if (e.altKey) return;
     switch (e.key) {
       case "/": {
         focusSearchBar(e);
         break;
       }
-    }
-    switch (e.key) {
       case "k": {
-        if (e.ctrlKey || e.metaKey) {
-          focusSearchBar(e);
-          break;
-        }
+        if (e.ctrlKey || e.metaKey) focusSearchBar(e);
+        break;
       }
-    }
-    switch (e.key) {
       case "f": {
-        if (e.ctrlKey || e.metaKey) {
-          focusSearchBar(e);
-          break;
-        }
+        if (e.ctrlKey || e.metaKey) focusSearchBar(e);
       }
     }
   }
@@ -216,19 +208,17 @@ document.querySelectorAll("[data-action='modal-privacy']").forEach(elem => elem.
   document.querySelector("dialog").showModal();
 }));
 
-// Dialog close buttons
+// Dialog close button(s)
 document.querySelectorAll("dialog").forEach(element => {
-  element.querySelector("button").addEventListener("click", () => {
-    element.close();
-  });
+  element.querySelector("button").addEventListener("click", element.close);
 });
 
 // Show "Back to top" button if you've scrolled past a certain point
 document.addEventListener("scroll", () => {
   const show = window.scrollY > 300;
   elements.topButton.style.pointerEvents = show ? "all" : "none";
-  elements.topButton.style.opacity = show ? 1 : 0;
-  elements.topButton.tabindex = show ? 0 : -1;
+  elements.topButton.style.opacity = +show;
+  elements.topButton.tabindex = -1 + show;
 });
 
 // "Back to top" button

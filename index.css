@@ -136,7 +136,7 @@ header > div input {
 
 
 #btn-random:is(:hover, :focus-visible) {
-  text-decoration: none !important;
+  text-decoration: none;
   animation: roll 0.6s ease-in-out;
 }
 
