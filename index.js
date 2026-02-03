@@ -208,9 +208,9 @@ document.querySelectorAll("[data-action='modal-privacy']").forEach(elem => elem.
   document.querySelector("dialog").showModal();
 }));
 
-// Dialog close button(s)
-document.querySelectorAll("dialog").forEach(element => {
-  element.querySelector("button").addEventListener("click", element.close);
+// Dialog close button
+document.querySelectorAll("dialog").forEach(dialog => {
+  dialog.querySelector("button").addEventListener("click", () => dialog.close());
 });
 
 // Show "Back to top" button if you've scrolled past a certain point
