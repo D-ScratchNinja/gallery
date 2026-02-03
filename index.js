@@ -12,7 +12,7 @@ function addProjectToList(data) {
 
   // Image source
   aElem.firstElementChild.src =
-    `https://uploads.scratch.mit.edu/get_image/project/${data.id}_480x360.png`;
+    `https://uploads.scratch.mit.edu/projects/thumbnails/${data.id}.png`;
 
   // Readable description
   aElem.ariaLabel = data.title;
