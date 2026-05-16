@@ -1,4 +1,7 @@
 export default [
+  { id: "1276829317", title: "Super Key", tags: ["featured", "game", "game_action", "game_arcade", "game_fast", "game_strategy"] },
+  { id: "1275237266", title: "Dot Dodger (0 costumes 0 sounds)", tags: ["game", "game_action", "game_arcade", "game_casual", "game_fast"] },
+  { id: "1269289033", title: "Bubbles on the Loose!", tags: ["game", "game_action", "game_arcade", "game_casual", "game_fast"] },
   { id: "1259671548", title: "f(blocks)", tags: ["tool"] },
   { id: "1226673070", title: "Face Control!", tags: ["fun"] },
   { id: "957594508", title: "How to Bogo Sort", eventSpecific: true, tags: ["aprilfools"] },
@@ -72,7 +75,7 @@ export default [
   { id: "557052313", title: "Replay Multiplayer", tags: ["game", "game_arcade", "game_casual", "game_fast", "game_platformer", "game_racing"] },
   { id: "554960269", title: "YouTube Platformer", tags: ["game", "game_arcade", "game_casual", "game_slow", "game_platformer"] },
   { id: "555656392", title: "D-ScratchNinja Platformer Scripts", tags: ["library"] },
-  { id: "539686442", title: "Super Keyboard", tags: ["featured", "game", "game_action", "game_arcade", "game_fast", "game_strategy"] },
+  { id: "539686442", title: "Super Keyboard", tags: ["game", "game_action", "game_arcade", "game_fast", "game_strategy"] },
   { id: "538643529", title: "Bubble Snap", tags: ["game", "game_arcade", "game_casual", "game_fast", "game_strategy"] },
   { id: "534644311", title: "Sprite Linemaker", tags: ["game", "game_arcade", "game_casual", "game_slow", "game_puzzle", "game_strategy"] },
   { id: "531342955", title: "Shoot towards the Flags 2", tags: ["featured", "game", "game_arcade", "game_casual", "game_fast", "game_strategy"] },
