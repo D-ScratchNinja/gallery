@@ -1,4 +1,5 @@
 export default [
+  { id: "1225022099", title: "Networthy Demo", tags: ["game", "game_arcade", "game_casual", "game_fast"] },
   { id: "1276829317", title: "Super Key", tags: ["featured", "game", "game_action", "game_arcade", "game_fast", "game_strategy"] },
   { id: "1275237266", title: "Dot Dodger (0 costumes 0 sounds)", tags: ["game", "game_action", "game_arcade", "game_casual", "game_fast"] },
   { id: "1269289033", title: "Bubbles on the Loose!", tags: ["game", "game_action", "game_arcade", "game_casual", "game_fast"] },
